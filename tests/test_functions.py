@@ -25,7 +25,7 @@ def test_date_operations(test_func):
                                                       datetime.datetime(2019, 12, 8, 22, 46, 21, 935582)]
 
 
-def test_last_five_operations(test_func):
+def test_five_operations(test_func):
     assert five_operations(json_encode(test_func), date_operations(json_encode(test_func))) == [
         {'id': 863064926, 'state': 'EXECUTED', 'date': '2019-12-08T22:46:21.935582',
          'operationAmount': {'amount': '41096.24', 'currency': {'name': 'USD', 'code': 'USD'}},
@@ -46,7 +46,7 @@ def test_last_five_operations(test_func):
          'to': 'Счет 46765464282437878125'}]
 
 
-def test_sorted_last_five(test_func):
+def test_sorted_five(test_func):
     assert sorted_five(five_operations(json_encode(test_func), date_operations(json_encode(test_func)))) == [
         {'id': 863064926, 'state': 'EXECUTED', 'date': datetime.datetime(2019, 12, 8, 22, 46, 21, 935582),
          'operationAmount': {'amount': '41096.24', 'currency': {'name': 'USD', 'code': 'USD'}},
@@ -67,7 +67,7 @@ def test_sorted_last_five(test_func):
          'description': 'Открытие вклада', 'to': 'Счет 77613226829885488381'}]
 
 
-def test_replace_number():
+def test_encrypting():
     assert encrypting("Счет 48894435694657014368") == "Счет **4368"
     assert encrypting("Visa Classic 6831982476737658") == "Visa Classic 6831 98** **** 7658"
     assert encrypting("Maestro 3928549031574026") == "Maestro 3928 54** **** 4026"

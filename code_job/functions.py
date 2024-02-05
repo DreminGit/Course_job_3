@@ -6,7 +6,7 @@ import json
 
 def json_encode(name):
     """Читаем файл json с пометкой чтение """
-    with open(name, "r") as file:
+    with open("operations.json", "r", encoding='utf-8') as file:
         data = json.load(file)
     return data
 
@@ -35,9 +35,9 @@ def five_operations(list_operations, last_five_datetime):
     return last_five
 
 
-def sorted_five(last_five_operations):
+def sorted_five(five_operations):
     """Функция, что сортирует данные последних пяти операций"""
-    last_five = last_five_operations
+    last_five = five_operations
     for every in last_five:
         every["date"] = datetime.datetime.fromisoformat(every["date"])
     sorted_last_five = sorted(last_five, key=lambda x: x["date"], reverse=True)
@@ -48,14 +48,14 @@ def encrypting(string_number):
     """Функиця, что зашифровывает номер карты и счета, выводимых в данных об операциях"""
     text_list = string_number.split()
     try:
-        replace_number = ", ".join(([text_list[-1][length:length + 4] for length in range(0, len(text_list[-1]), 4)]))
+        encrypting = ", ".join(([text_list[-1][length:length + 4] for length in range(0, len(text_list[-1]), 4)]))
     except IndexError:
         return ""
-    replace_number_min = replace_number.replace(",", "")
+    encrypting_min = encrypting.replace(",", "")
     if text_list[0] != "Счет":
-        replace_number_finally = replace_number_min[:7] + "** ****" + replace_number_min[-5:]
+        replace_number_finally = encrypting_min[:7] + "** ****" + encrypting_min[-5:]
     else:
-        replace_number_finally = "**" + replace_number_min[-4:]
+        replace_number_finally = "**" + encrypting_min[-4:]
     text_list_replace = text_list[:-1]
     text_list_replace.append(replace_number_finally)
     text_replace = ", ".join(text_list_replace).replace(",", "")
